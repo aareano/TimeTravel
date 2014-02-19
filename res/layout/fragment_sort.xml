@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    
+	<TableRow
+	    android:id="@+id/tblrow_top"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:padding="10dp"
+	    android:background="@color/grey_blue" >
+	    
+	    <TextView
+	        android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:text="@string/sort_instruction" />
+	    
+	    <Spinner
+	 	    android:id="@+id/spinner_top"
+	 	    android:layout_width="wrap_content"
+	 	    android:layout_height="wrap_content"
+	 	    android:layout_marginLeft="5dp" />
+	    
+   	    <TextView
+	        android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:layout_marginLeft="5dp"
+	    	android:text="@string/end_text" />
+	</TableRow>
+	
+	<TableRow
+	    android:id="@+id/tblrow_view_all"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:padding="10dp"
+	    android:background="@color/grey_blue" >
+	    
+	    <TextView
+	        android:id="@+id/all_text"
+	        android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
+	    	android:text="@string/organize_by" />
+	    
+	    <Spinner
+	 	    android:id="@+id/spinner_org_all"
+	 	    android:layout_width="wrap_content"
+	 	    android:layout_height="wrap_content"
+	 	    android:layout_marginLeft="5dp" />
+	</TableRow>
+	
+	<TableRow
+	    android:id="@+id/tblrow_view_by_category"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:padding="10dp"
+	    android:background="@color/grey_blue" >
+	    
+	    <TextView
+	        android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
+	    	android:text="@string/sort_categories" />
+	    
+	    <Spinner
+	 	    android:id="@+id/spinner_categories"
+	 	    android:layout_width="wrap_content"
+	 	    android:layout_height="wrap_content"
+	 	    android:layout_marginLeft="5dp" />
+	</TableRow>
+	
+	<TableRow
+	    android:id="@+id/tblrow_view_recent"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:padding="10dp"
+	    android:background="@color/grey_blue" >
+	    
+	    <TextView
+	        android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
+	    	android:text="@string/recent_time" />
+	    
+	    <EditText
+	        android:id="@+id/how_recent"
+	        android:hint="@string/fix_time_hint"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="7dp" /> 
+	    
+	    <Spinner
+	 	    android:id="@+id/spinner_recent_res"
+	 	    android:layout_width="wrap_content"
+	 	    android:layout_height="wrap_content" />
+	</TableRow>
+		    
+    <View
+        android:id="@+id/dividing_line"
+        android:layout_width="fill_parent"
+		android:layout_height="2dip"
+		android:background="@color/dark_blue" />
+</TableLayout>

@@ -1,0 +1,77 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools" 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".MainMenu" >
+	
+	<RelativeLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical">
+	    <TextView
+	        android:id="@+id/text_menu_title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:layout_centerHorizontal="true"
+	        android:layout_marginTop="20dp"
+	        android:text="@string/string_menu_title"
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
+	    
+	    <Button
+	        android:id="@+id/button_new_act"
+	        android:onClick="onClickNewAct"
+	        
+	        style="?android:attr/buttonBarButtonStyle"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:padding="40dp"
+	        android:gravity="left"
+	        android:background="@color/main_menu_button1"
+	        android:layout_below="@+id/text_menu_title"
+	        android:layout_marginTop="40dp"
+	        android:text="@string/string_new_action" />
+	
+	    <Button
+	        android:id="@+id/button_display_actions"
+	        android:onClick="onClickDisplayAction"
+	        
+	        style="?android:attr/buttonBarButtonStyle"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:padding="40dp"
+	        android:layout_below="@+id/button_new_act"
+	        android:gravity="left"
+	        android:background="@color/main_menu_button2"
+	        android:text="@string/string_display_actions" />
+	
+	    <Button
+	        android:id="@+id/button_stats"
+	        android:onClick="onClickStats"
+	        
+	        style="?android:attr/buttonBarButtonStyle"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:padding="40dp"
+	        android:layout_below="@+id/button_display_actions"
+	        android:gravity="left"
+	        android:background="@color/main_menu_button3"
+	        android:text="@string/string_stats" />
+	
+	    <Button
+	        android:id="@+id/button_update"
+	        style="?android:attr/buttonBarButtonStyle"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="40dp"
+	        android:padding="20dp"
+	        android:layout_below="@+id/button_stats"
+	        android:gravity="center"
+	        android:layout_alignParentRight="true"
+	        android:layout_alignParentBottom="true"
+	        android:onClick="onClickUpdate"
+	        android:background="@color/main_menu_button4"
+	        android:text="@string/string_upgrade" />
+	</RelativeLayout>
+</ScrollView>

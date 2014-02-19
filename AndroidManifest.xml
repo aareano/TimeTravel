@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.timetravel"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="19" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.example.timetravel.MainMenu"
+            android:label="@string/title_activity_main_menu" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.timetravel.NewAction"
+            android:label="@string/app_name"
+            android:parentActivityName="@string/title_activity_main_menu" >/
+        </activity>
+        <activity
+            android:name="com.example.timetravel.DisplayActions"
+            android:label="@string/title_activity_display_actions"
+            android:parentActivityName="@string/title_activity_main_menu" >
+        </activity>
+        <activity
+            android:name="com.example.timetravel.History"
+            android:label="@string/title_activity_history"
+            android:parentActivityName="@string/title_activity_main_menu" >
+        </activity>
+    </application>
+
+</manifest>

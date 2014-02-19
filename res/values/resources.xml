@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string-array name="days_array">
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+    </string-array>
+    
+    <string-array name="timeLength_array">
+        <item>1 hour</item>
+        <item>2 hours</item>
+        <item>3 hours</item>
+        <item>4 hours</item>
+        <item>5 hours</item>
+        <item>6 hours</item>
+    </string-array>
+
+    <string-array name="top_sort_array">
+        <item>current</item>
+        <item>all</item>
+        <item>by category</item>
+        <item>a fixed time</item>
+    </string-array>
+    
+    <string-array name="sort_all_array">
+        <item>chronologically</item>
+        <item>alpha-numerically</item>
+    </string-array>
+    
+    <string-array name="recent_res_array">
+        <item>days</item>
+        <item>weeks</item>
+        <item>months</item>
+    </string-array>
+    
+    <string-array name="history_array">
+        <item>Order chronologically</item>
+        <item>Order by category</item>
+    </string-array>
+    
+</resources>

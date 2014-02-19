@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true" >
+    
+    <!-- 1st Row, 2 Columns -->
+    <TableRow
+        android:id="@+id/collRow_name_date"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="5dip"
+        android:layout_weight="1" >
+	
+		<TextView
+		    android:id="@+id/text_name"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:layout_weight="1"
+		    android:gravity="left" />
+		    
+		<TextView
+		    android:id="@+id/text_category"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:layout_weight="0.8"
+		    android:gravity="left" />
+		    
+    </TableRow>
+	
+    <!-- 2nd Row, 2 Columns -->
+	<TableRow
+        android:id="@+id/expRow_date_time"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="5dp"
+        android:layout_weight="1" >
+	
+		<TextView
+		    android:id="@+id/text_startTime"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:layout_weight="1"
+		    android:gravity="left" />
+		    
+		<TextView
+		    android:id="@+id/text_endTime"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:layout_weight="0.8"
+		    android:gravity="left" />
+    </TableRow>
+    
+    <TableRow
+        android:id="@+id/expRow_edit_delete"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1" >
+
+        <Button
+            android:id="@+id/button_edit"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:onClick="editAction"
+            android:text="@string/button_edit" />
+		    
+		<Button
+		    android:id="@+id/button_delete"
+		    style="?android:attr/buttonBarButtonStyle"
+		    android:layout_width="0dp"
+		    android:layout_height="match_parent"
+		    android:layout_weight="1"
+		    android:layout_marginLeft="5dp"
+		    android:gravity="center"
+		    android:text="@string/button_delete"
+		    android:onClick="deleteAction" />
+    </TableRow>
+
+</TableLayout>

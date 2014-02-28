@@ -2,6 +2,7 @@ package com.example.timetravel;
 
 // This is my TODO list.
  
+// Redesign database scheme - make sure this is easiest for retracting total time and such.
 // View categories and edit the list of them
 // Analytics!
 
@@ -48,8 +49,7 @@ public class MainMenu extends Activity {
 	}
 	
 	public void onClickUpdate(View v) {
-		ActionDataSource datasource = new ActionDataSource(this);
-		datasource.open();
+		DatabaseHelper datasource = new DatabaseHelper(this);
 		datasource.close();
 		Toast.makeText(this, "Upgraded database", Toast.LENGTH_SHORT).show();
 	}

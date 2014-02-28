@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="TAG">TimeTravel</string>
     
     <!-- Action Bar menus -->
     <string name="action_settings">Settings</string>
@@ -28,6 +29,9 @@
 	<string name="button_start_date">Start date</string>
 	<string name="button_end_time">End time</string>
 	<string name="button_end_date">End date</string>
+	
+	<!-- Category dialog fragment-->
+	<string name="message_no_categories">No categories</string>
 	
 	<!-- DisplayActions activity -->
 	<string name="sort_instruction">View </string>
@@ -63,5 +67,7 @@
     <color name="main_menu_button2">#BCC9D1</color>
     <color name="main_menu_button3">#B5C0C7</color>
     <color name="main_menu_button4">#536F7A</color>
+    <color name="display_actions_background">#EBEBEB</color>
+    
     
 </resources>

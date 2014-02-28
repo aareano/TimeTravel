@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
-import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,13 +14,12 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemSelectedListener;
 
 /**
  * This is a really convoluted class...needs some cleanup. Maybe some out-sourcing?
@@ -154,13 +152,15 @@ public class SortFragment extends Fragment {
 					// Category spinner (retrieves all possible categories and lists them by frequency of use)
 					
 					// get categories from database
-					String tableName = MySQLiteHelper.TABLE_ACTIONS;
+					String tableName = DatabaseHelper.TABLE_ACTIONS;
 					String[] columns = new String[] {
-							MySQLiteHelper.COLUMN_ID, 
-							MySQLiteHelper.COLUMN_CATEGORY };
+							DatabaseHelper.COLUMN_ID, 
+							DatabaseHelper.COLUMN_CATEGORY };
 					
 			        // Return a cursor that points to all categories -- order from database, by last used
-			        Cursor cursor = (DisplayActions.datasource).proxyQuery(tableName, columns, null, null, null, null, null);
+					DatabaseHelper datasource = new DatabaseHelper(getActivity());
+			        Cursor cursor = datasource.proxyQuery(tableName, columns, null, null, null, null, null);
+			        datasource.close();
 			        Log.d(TAG, "Categories: " + cursor.getCount());
 			        
 			        Spinner spinnerCAT = (Spinner) (getActivity().findViewById(R.id.spinner_categories));

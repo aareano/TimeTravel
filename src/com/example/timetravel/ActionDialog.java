@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.Locale;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v4.app.DialogFragment;
@@ -24,17 +23,12 @@ public class ActionDialog extends DialogFragment {
 	public static String TAG = "TimeTravel";
 	public DisplayActionDialog mCallback;
 	public String mName;
+	public int mId;
 	public Action mAction;
 	public View mLayout;
 	public Calendar startTime;
 	public Calendar endTime;
 	
-	@Override
-	public Dialog onCreateDialog(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		return super.onCreateDialog(savedInstanceState);
-	}
-
 	public interface DisplayActionDialog {
 		void editAction(Action mAction);
 		void deleteAction(Action mAction);
@@ -51,15 +45,15 @@ public class ActionDialog extends DialogFragment {
     }
 	
 	/**
-     * Create a new instance of MyDialogFragment, providing string "name"
+     * Create a new instance of ActionDialog fragment, providing and action id and action name
      * as an argument.
      */
-    static ActionDialog newInstance(String name) {
+    static ActionDialog newInstance(Action action) {
     	ActionDialog f = new ActionDialog();
         Bundle args = new Bundle();
-        // Use name instead of the id because the id would require 2 
-        // searches in ActionRegistry instead of just 1.
-        args.putString("name", name);
+        
+        args.putInt("id", action.getId());
+        args.putString("name", action.getName());
         f.setArguments(args);
         return f;
     }
@@ -67,16 +61,17 @@ public class ActionDialog extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mName = getArguments().getString("name");
+        DatabaseHelper datasource = new DatabaseHelper(getActivity());
+        
+        mId = getArguments().getInt("id");
         
         // Get action object
         mAction = null;
-		try {
-			mAction = Action.findActionByName(mName);
-			Log.d(TAG, "dialog mName = " + mAction.getName());
-		} catch (NoActionFoundException e) {
-			e.printStackTrace();
-			Log.d(TAG, e.toString());
+		mAction = datasource.getAction(mId);
+		
+		// probably unnecessary
+		if (mAction == null) {
+			Log.d(TAG, "No action found");
 		}
     }
 
@@ -119,14 +114,14 @@ public class ActionDialog extends DialogFragment {
      */
     public void setTimes() {
     	// start time
-    	startTime = mAction.getStartTime();
+    	startTime = mAction.getStart();
     	Date startDate = startTime.getTime(); 
-    	SimpleDateFormat fmt = new SimpleDateFormat("MM/dd HH:mm", Locale.ENGLISH);		// used multiple times
+    	SimpleDateFormat fmt = new SimpleDateFormat("MM/dd HH:mm", Locale.ENGLISH);		// also used later
     	String start = fmt.format(startDate);
     	((TextView) mLayout.findViewById(R.id.start_time)).setText(start);
     	
     	// end time
-    	endTime = mAction.getEndTime();
+    	endTime = mAction.getEnd();
     	Date endDate = endTime.getTime();
     	String end = fmt.format(endDate);
     	((TextView) mLayout.findViewById(R.id.end_time)).setText(end);

@@ -20,7 +20,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.NavUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -46,17 +45,16 @@ public class NewAction extends FragmentActivity implements onStartTimeSetListene
 		onEndTimeSetListener, onEndDateSetListener {
 	
 	private String TAG = "TimeTravel";
-	public final String ACTIONid = "com.example.timetravel.ACTIONid";
-	private ActionDataSource datasource;
+	private DatabaseHelper datasource;
 	
 	// Components of an Action
-	public Calendar startTime;
-	public Calendar endTime;
-	private Calendar timeCreated;
+	public Calendar start;
+	public Calendar end;
 	private String name;
 	private String category;
 	private boolean isEdit;
 	private Action action;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,11 +65,15 @@ public class NewAction extends FragmentActivity implements onStartTimeSetListene
 		setContentView(R.layout.activity_new_action);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
-		datasource = new ActionDataSource(this);
-		datasource.open();
+		datasource = new DatabaseHelper(this);
 		
+		// receive data in.
 		importAndSetData();
+		
+		// create spinner with all categories in it. set category (if isEdit)
 		setSpinners();
+		
+		// set start and end time
 		setButtonStrings();
 	}
 
@@ -117,14 +119,58 @@ public class NewAction extends FragmentActivity implements onStartTimeSetListene
         return super.onOptionsItemSelected(item);
 	}
 
+	/**
+	 * initializes member variables name, category, start, and end
+	 * receives in data if this is an edit.
+	 */
+	public void importAndSetData() {
+		Log.i(TAG, "NewAction.importAndSetData()");
+		
+		// These variables must be initiated if they are to be changed later
+		long millisInHour = 3600000;
+		start = Calendar.getInstance();				// start = current time
+		end = Calendar.getInstance();				// end = current time + 1 hour
+		end.setTimeInMillis(start.getTimeInMillis() + millisInHour);
+		
+		Intent intent = getIntent();
+		String booleanExtraTag = "com.example.timetravel.IsEDIT";
+		isEdit = intent.getBooleanExtra(booleanExtraTag, false);
+		
+		Log.i(TAG, "IsEdit: " + isEdit);
+
+		
+		/** The action could be started by main menu = not an edit
+		  * or by the History listing = edit
+		  */
+		if (isEdit) {
+			
+			// Get action  (find by its name)
+			int id = intent.getIntExtra("action_id", 0);
+			action = new Action(); 		// initialize
+			
+			action = datasource.getAction(id);
+			
+			// Set name, category, start, end
+			name = action.getName();
+			category = action.getCategory();
+			start = action.getStart();
+			end = action.getEnd();
+			
+			// Set name
+			EditText editName = (EditText) findViewById(R.id.editText_action_name);
+			editName.setText(name, TextView.BufferType.EDITABLE);
+		}
+	}
+	
+	
 	private void setSpinners() {
 		Log.i(TAG, "NewAction.setSpinners()");
 
 		// get categories from database
-		String tableName = MySQLiteHelper.TABLE_ACTIONS;
+		String tableName = DatabaseHelper.TABLE_ACTIONS;
 		String[] columns = new String[] {
-				MySQLiteHelper.COLUMN_ID, 
-				MySQLiteHelper.COLUMN_CATEGORY };
+				DatabaseHelper.COLUMN_ID, 
+				DatabaseHelper.COLUMN_CATEGORY };
 		
         // Return a cursor that points to all categories -- order from database, by last used
         Cursor cursor = datasource.proxyQuery(tableName, columns, null, null, null, null, null);
@@ -154,7 +200,10 @@ public class NewAction extends FragmentActivity implements onStartTimeSetListene
 		final String newCategory = getResources().getString(R.string.new_category);
 		adapter.add(newCategory);
 		
-		/*
+		
+		
+		// TODO
+		
 		// Pre-set category
 		if (isEdit) {
 			for (int position = 0; position < adapter.getCount(); position++)
@@ -165,7 +214,6 @@ public class NewAction extends FragmentActivity implements onStartTimeSetListene
 		        }
 		    }
 		}
-		*/
 		
 		// make sure the category EditText is gone 
 		final EditText editCategory = (EditText) findViewById(R.id.edit_text_new_category);
@@ -327,54 +375,7 @@ public class NewAction extends FragmentActivity implements onStartTimeSetListene
         return (ArrayList<String>) sortedList;
 	}
 	
-	/**
-	 * Prepare class variables name, category, startTime, and endTime
-	 * Takes appropriate action if this is an edit
-	 */
-	public void importAndSetData() {
-		Log.i(TAG, "NewAction.importAndSetData()");
-		
-		// These variables must be initiated if they are to be changed later
-		long millisInHour = 3600000;
-		timeCreated = Calendar.getInstance();
-		startTime = Calendar.getInstance();				// startTime = current time
-		endTime = Calendar.getInstance();				// endTime = current time + 1 hour
-		endTime.setTimeInMillis(startTime.getTimeInMillis() + millisInHour);
-		
-		Intent intent = getIntent();
-		String booleanExtraTag = "com.example.timetravel.IsEDIT";
-		isEdit = intent.getBooleanExtra(booleanExtraTag, false);
-		
-		Log.i(TAG, "IsEdit: " + isEdit);
-
-		
-		/** The action could be started by main menu = not an edit
-		  * or by the History listing = edit
-		  */
-		if (isEdit) {
-			
-			// Get action  (find by its name)
-			int id = intent.getIntExtra(ACTIONid, 0);
-			action = null; 		// initialize
-			
-			try {
-				action = Action.findActionById(id);
-			} catch (NoActionFoundException e) {
-				e.printStackTrace();
-			}
-			
-			// Set category, startTime, endTime
-			name = action.getName();
-			category = action.getCategory();
-			Log.d(TAG, "category = " + category);
-			startTime = action.getStartTime();
-			endTime = action.getEndTime();
-			
-			// Set name
-			EditText editName = (EditText) findViewById(R.id.editText_action_name);
-			editName.setText(name, TextView.BufferType.EDITABLE);
-		}
-	}
+	
 	
 	/**
 	 * Set strings for buttons
@@ -387,8 +388,8 @@ public class NewAction extends FragmentActivity implements onStartTimeSetListene
 		Button eTimeBut = (Button) findViewById(R.id.button_endTime);
 		Button eDateBut = (Button) findViewById(R.id.button_endDate);
 		
-		Date startDate = startTime.getTime();
-		Date endDate = endTime.getTime();
+		Date startDate = start.getTime();
+		Date endDate = end.getTime();
 		
 		SimpleDateFormat time = new SimpleDateFormat("KK:mm a", Locale.ENGLISH);
 		SimpleDateFormat date = new SimpleDateFormat("MM/dd/yy", Locale.ENGLISH);
@@ -400,70 +401,70 @@ public class NewAction extends FragmentActivity implements onStartTimeSetListene
 	}
 	
 	
-	// startTime or endTime is passed in as a parameter
+	// start or end is passed in as a parameter
 	// Start time
 	public void showStartTimePickerDialog(View v) {
-		Log.d(TAG, "before dialog startTime: " + startTime.getTime().toString());
-		DialogFragment newFragment = StartTimePickerFragment.newInstance(startTime.getTimeInMillis());
+		Log.d(TAG, "before dialog start: " + start.getTime().toString());
+		DialogFragment newFragment = StartTimePickerFragment.newInstance(start.getTimeInMillis());
 	    newFragment.show(getSupportFragmentManager(), "startTimePicker");
 	}
 	
 	// Start date
 	public void showStartDatePickerDialog(View v) {
-		Log.d(TAG, "before dialog startTime: " + startTime.getTime().toString());
-		DialogFragment newFragment = StartDatePickerFragment.newInstance(startTime.getTimeInMillis());
+		Log.d(TAG, "before dialog start: " + start.getTime().toString());
+		DialogFragment newFragment = StartDatePickerFragment.newInstance(start.getTimeInMillis());
 	    newFragment.show(getSupportFragmentManager(), "startDatePicker");
 	}
 
 	// End time
 	public void showEndTimePickerDialog(View v) {
-		Log.d(TAG, "before dialog endTime: " + endTime.getTime().toString());
-		DialogFragment newFragment = EndTimePickerFragment.newInstance(endTime.getTimeInMillis());
+		Log.d(TAG, "before dialog end: " + end.getTime().toString());
+		DialogFragment newFragment = EndTimePickerFragment.newInstance(end.getTimeInMillis());
 	    newFragment.show(getSupportFragmentManager(), "endTimePicker");
 	}
 	
 	// End date
 	public void showEndDatePickerDialog(View v) {
-		Log.d(TAG, "before dialog endTime: " + endTime.getTime().toString());
-		DialogFragment newFragment = EndDatePickerFragment.newInstance(endTime.getTimeInMillis());
+		Log.d(TAG, "before dialog end: " + end.getTime().toString());
+		DialogFragment newFragment = EndDatePickerFragment.newInstance(end.getTimeInMillis());
 	    newFragment.show(getSupportFragmentManager(), "endDatePicker");
 	}
 	
 	// Start time
 	@Override
 	public void onStartTimeSet(int hourOfDay, int minute) {
-		startTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
-		startTime.set(Calendar.MINUTE, minute);
-		Log.d(TAG, "startTime: " + startTime.getTime().toString());
+		start.set(Calendar.HOUR_OF_DAY, hourOfDay);
+		start.set(Calendar.MINUTE, minute);
+		Log.d(TAG, "start: " + start.getTime().toString());
 		setButtonStrings();
 	}
 
 	// Start date
 	@Override
 	public void onStartDateSet(int year, int month, int monthDay) {
-		startTime.set(Calendar.YEAR, year);
-		startTime.set(Calendar.MONTH, month);
-		startTime.set(Calendar.DAY_OF_MONTH, monthDay);
-		Log.d(TAG, "startTime: " + startTime.getTime().toString());
+		start.set(Calendar.YEAR, year);
+		start.set(Calendar.MONTH, month);
+		start.set(Calendar.DAY_OF_MONTH, monthDay);
+		Log.d(TAG, "start: " + start.getTime().toString());
 		setButtonStrings();
 	}
 	
 	// End time
 	@Override
 	public void onEndTimeSet(int hourOfDay, int minute) {
-		endTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
-		endTime.set(Calendar.MINUTE, minute);
-		Log.d(TAG, "endTime: " + endTime.getTime().toString());
+		end.set(Calendar.HOUR_OF_DAY, hourOfDay);
+		end.set(Calendar.MINUTE, minute);
+		Log.d(TAG, "end: " + end.getTime().toString());
 		setButtonStrings();
 	}
 	
 	// End date
 	@Override
 	public void onEndDateSet(int year, int month, int monthDay) {
-		endTime.set(Calendar.YEAR, year);
-		endTime.set(Calendar.MONTH, month);
-		endTime.set(Calendar.DAY_OF_MONTH, monthDay);
-		Log.d(TAG, "endTime: " + endTime.getTime().toString());
+		end.set(Calendar.YEAR, year);
+		end.set(Calendar.MONTH, month);
+		end.set(Calendar.DAY_OF_MONTH, monthDay);
+		Log.d(TAG, "end: " + end.getTime().toString());
 		setButtonStrings();
 	}
 		
@@ -478,57 +479,66 @@ public class NewAction extends FragmentActivity implements onStartTimeSetListene
 			return saved;
 		}
 		
-		// Round startTime and endTime off to minutes
-		startTime.set(Calendar.SECOND, 0);
-		startTime.set(Calendar.MILLISECOND, 0);
-		endTime.set(Calendar.SECOND, 0);
-		endTime.set(Calendar.MILLISECOND, 0);
+		// Round start and end off to minutes
+		start.set(Calendar.SECOND, 0);
+		start.set(Calendar.MILLISECOND, 0);
+		end.set(Calendar.SECOND, 0);
+		end.set(Calendar.MILLISECOND, 0);
 		
-		// set startTime and endTime String objects (in milliseconds)
-		String startTimeString = String.valueOf(startTime.getTimeInMillis());
-        String endTimeString = String.valueOf(endTime.getTimeInMillis());
+		Log.d(TAG, "start: " + start.getTime().toString());
+		Log.d(TAG, "end: " + end.getTime().toString());
 		
-        // set timeCreated String objects (in milliseconds)
-        String timeCreatedString = String.valueOf(timeCreated.getTimeInMillis());
-        
-		Log.d(TAG, "timeCreated: " + timeCreated.getTime().toString());
-		Log.d(TAG, "startTime: " + startTime.getTime().toString());
-		Log.d(TAG, "endTime: " + endTime.getTime().toString());
 		
-		if (endTime.getTimeInMillis() <= startTime.getTimeInMillis()) {
+		// TESTS
+		if (end.getTimeInMillis() <= start.getTimeInMillis()) {
 			Toast.makeText(this, "The action must begin before it ends", Toast.LENGTH_LONG).show();
 			return saved;
-		}
-		if (endTime.getTimeInMillis() - startTime.getTimeInMillis() > 2147483640) {
+		} else if (end.getTimeInMillis() - start.getTimeInMillis() > 2147483640) {
 			// tests against the (rounded) max value of an integer
 			Toast.makeText(this, "Action is too long", Toast.LENGTH_LONG).show();
 			return saved;
-		}
-        if (isEdit) {
+		} else if (category.equals(getResources().getString(R.string.choose_category))) {
+			Toast.makeText(this, "Choose category", Toast.LENGTH_LONG).show();
+			return saved;
+		} else if (isEdit) {
         	// Delete original action if this is an edit
         	Log.i(TAG, "Deleting original action");
         	datasource.deleteAction(action.getId());
         }
-        if (category.equals(getResources().getString(R.string.choose_category))) {
-			Toast.makeText(this, "Choose category", Toast.LENGTH_LONG).show();
-			return saved;
-		}
         
 		// Save action
-		datasource.createAction(name, category, startTimeString, endTimeString, timeCreatedString);
-		Toast.makeText(this, "Saved action", Toast.LENGTH_SHORT).show();
-		saved = true;
+        Action a = new Action(name, category, start, end);
+        long action_id = datasource.createAction(a);
+        
+        // Save category
+        long category_id = -1;
+        if (datasource.categoryExists(category, DatabaseHelper.CATEGORY_TABLE_LEVEL)) {
+        	category_id = 0;
+        }
+        if (!datasource.categoryExists(category, DatabaseHelper.CATEGORY_TABLE_LEVEL)) {
+        	category_id = datasource.createCategory(category, DatabaseHelper.CATEGORY_TABLE_LEVEL);
+        }
+        
+        // Create action-category relationship
+        long relationship_id = datasource.createActionCategory(action_id, category_id, DatabaseHelper.CATEGORY_TABLE_LEVEL);
+        
+        if (action_id != -1 && category_id != -1 && relationship_id != -1) {
+        	saved = true;
+			Toast.makeText(this, "Saved action", Toast.LENGTH_SHORT).show();
+        } else
+        	Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
+        	
+        
 		return saved;
 	}
 	
 	@Override
 	protected void onResume() {
 		Log.i(TAG, "NewAction.onResume()");
-		if (datasource != null)
-			datasource.open();
+		datasource = new DatabaseHelper(this);
 		super.onResume();
 	}
-	  
+	
 	@Override
 	protected void onPause() {
 		Log.i(TAG, "NewAction.onPause()");

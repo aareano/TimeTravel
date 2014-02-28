@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
 	android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:baselineAligned="false" >
+    android:baselineAligned="false"
+    android:background="@color/display_actions_background" >
     
     <ListView
 		android:id="@android:id/list"

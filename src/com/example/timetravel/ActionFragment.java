@@ -1,5 +1,8 @@
 package com.example.timetravel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
@@ -20,10 +23,11 @@ public class ActionFragment extends ListFragment {
 	
 	final String TAG = "TimeTravel";
 	SelectAction mCallback;
+	List<Action> mActions = new ArrayList<Action>();
 	
 	public interface SelectAction {
 		void onSelect(Action action);
-		void showDialog(String actionName);
+		void showDialog(Action action);
 	}
 	
 	public void onAttach(Activity activity) {
@@ -67,12 +71,12 @@ public class ActionFragment extends ListFragment {
 		String[] selectionArgs = null;
 		
 		// Default values for tableName and columns (ID column must always be called)
-		String tableName = MySQLiteHelper.TABLE_ACTIONS;
+		String tableName = DatabaseHelper.TABLE_ACTIONS;
 		columns = new String[] {
-				MySQLiteHelper.COLUMN_ID, 
-				MySQLiteHelper.COLUMN_NAME, 
-				MySQLiteHelper.COLUMN_CATEGORY, 
-				MySQLiteHelper.COLUMN_END_TIME
+				DatabaseHelper.COLUMN_ID, 
+				DatabaseHelper.COLUMN_NAME, 
+				DatabaseHelper.COLUMN_CATEGORY, 
+				DatabaseHelper.COLUMN_END
 				};
 		
 		/* SORT MAP
@@ -110,11 +114,11 @@ public class ActionFragment extends ListFragment {
 			long nowMillis = t.toMillis(true);
 			
 			// "where endTimeMillis >= nowMillis" -> Action is ongoing
-			whereClause = MySQLiteHelper.COLUMN_END_TIME + " >= ?";
+			whereClause = DatabaseHelper.COLUMN_END + " >= ?";
 	        selectionArgs = new String[] { String.valueOf(nowMillis) };
 			
 	        // sort chronologically
-	        orderBy = MySQLiteHelper.COLUMN_END_TIME + " DESC";
+	        orderBy = DatabaseHelper.COLUMN_END + " DESC";
 	        
 		} else if (sortParams[0].equals(topSortArray[1])) {
 			if (sortParams[1].equals(allSortArray[0])) {
@@ -125,7 +129,7 @@ public class ActionFragment extends ListFragment {
 		        selectionArgs = null;
 				
 		        // sort chronologically
-		        orderBy = MySQLiteHelper.COLUMN_END_TIME + " DESC";
+		        orderBy = DatabaseHelper.COLUMN_END + " DESC";
 		        
 			} else if (sortParams[1].equals(allSortArray[1])) {
 				//show all sort alpha-numerically
@@ -135,23 +139,23 @@ public class ActionFragment extends ListFragment {
 		        selectionArgs = null;
 				
 		        // sort by name a-z, 0-9
-		        orderBy = MySQLiteHelper.COLUMN_NAME + " ASC";
+		        orderBy = DatabaseHelper.COLUMN_NAME + " ASC";
 			}
 		} else if (sortParams[0].equals(topSortArray[2])) {
 			// show 1 category sort chronologically
 			
 			// return entries with correct category
-			whereClause = MySQLiteHelper.COLUMN_CATEGORY + " = ?";
+			whereClause = DatabaseHelper.COLUMN_CATEGORY + " = ?";
 	        
 			String category = sortParams[1];
 			selectionArgs = new String[] { category };
 			
 	        // sort chronologically
-	        orderBy = MySQLiteHelper.COLUMN_END_TIME + " DESC";
+	        orderBy = DatabaseHelper.COLUMN_END + " DESC";
 			
 		} else if (sortParams[0].equals(topSortArray[3])) {
 			
-			long millisPerDay = 86400000;
+			final long millisPerDay = 86400000;
 			
 			if (sortParams[1].equals(recentSortArray[0])) {
 				// show any in the last x DAYS of time sort chronologically
@@ -163,12 +167,12 @@ public class ActionFragment extends ListFragment {
 				long nowMillis = t.toMillis(true);
 				
 				long minMillis = (long) (nowMillis - (days * millisPerDay));
-				whereClause = MySQLiteHelper.COLUMN_END_TIME + " >= ?";
+				whereClause = DatabaseHelper.COLUMN_END + " >= ?";
 				
 				selectionArgs = new String[] { String.valueOf(minMillis) };
 				
 				// sort chronologically
-		        orderBy = MySQLiteHelper.COLUMN_END_TIME + " DESC";
+		        orderBy = DatabaseHelper.COLUMN_END + " DESC";
 				
 			} else if (sortParams[1].equals(recentSortArray[1])) {
 				// show any in the last x WEEKS of time sort chronologically
@@ -183,12 +187,12 @@ public class ActionFragment extends ListFragment {
 				long millisPerWeek = millisPerDay * 7;
 				
 				long minMillis = (long) (nowMillis - (weeks * millisPerWeek));
-				whereClause = MySQLiteHelper.COLUMN_END_TIME + " >= ?";
+				whereClause = DatabaseHelper.COLUMN_END + " >= ?";
 				
 				selectionArgs = new String[] { String.valueOf(minMillis) };
 				
 				// sort chronologically
-		        orderBy = MySQLiteHelper.COLUMN_END_TIME + " DESC";
+		        orderBy = DatabaseHelper.COLUMN_END + " DESC";
 		        
 			} else if (sortParams[1].equals(recentSortArray[2])) {
 				// show any in the last x MONTHS of time sort chronologically
@@ -203,34 +207,51 @@ public class ActionFragment extends ListFragment {
 				long millisPerMonth = millisPerDay * 31;		// not very robust
 				
 				long minMillis = (long) (nowMillis - (months * millisPerMonth));
-				whereClause = MySQLiteHelper.COLUMN_END_TIME + " >= ?";
+				whereClause = DatabaseHelper.COLUMN_END + " >= ?";
 				
 				selectionArgs = new String[] { String.valueOf(minMillis) };
 				
 				// sort chronologically
-		        orderBy = MySQLiteHelper.COLUMN_END_TIME + " DESC";
+		        orderBy = DatabaseHelper.COLUMN_END + " DESC";
 			}
 		}
 
         // Return a cursor
-        Cursor cursor = (DisplayActions.datasource).proxyQuery(tableName, columns, whereClause, selectionArgs, null, null, orderBy);
+		DatabaseHelper datasource = new DatabaseHelper(getActivity());
+        Cursor cursor = datasource.proxyQuery(tableName, columns, whereClause, selectionArgs, null, null, orderBy);
     	
         Log.i(TAG, "ActionFragment cursor count: " + cursor.getCount());
     	if (cursor.getCount() > 0)
     		success = true;
     	
         String [] bindFrom = new String[] {
-        		MySQLiteHelper.COLUMN_NAME, 
-        		MySQLiteHelper.COLUMN_CATEGORY };
+        		DatabaseHelper.COLUMN_NAME, 
+        		DatabaseHelper.COLUMN_CATEGORY };
         
         int[] bindTo = new int[] {
         		R.id.action_name, 
         		R.id.action_category };
         
+        if (cursor.moveToFirst()) {
+    		do {
+    			Action a = new Action();
+    			a.setId(cursor.getInt(0));
+    	    	a.setName(cursor.getString(1));
+    	    	a.setCategory(cursor.getString(2));
+    	    	a.setEnd(cursor.getLong(3));
+    	    	
+    	    	// adding to action list
+    	    	mActions.add(a);
+    		} while (cursor.moveToNext());
+    	}
+        
         CustomCursorAdapter custAdapter = new CustomCursorAdapter ((Context) getActivity(), R.layout.action_list_item,
         		cursor, bindFrom, bindTo, SimpleCursorAdapter.NO_SELECTION);
         setListAdapter(custAdapter);
         custAdapter.notifyDataSetChanged();
+        
+        
+        
         // Log.i(TAG, "Adapter set >> closing ActionFragment's cursor"); 		this makes it angry....
         // cursor.close();
         
@@ -243,7 +264,7 @@ public class ActionFragment extends ListFragment {
  				return true;
  			}
  		});
-	
+        
         return success;
 	}
     
@@ -251,10 +272,13 @@ public class ActionFragment extends ListFragment {
     public void onListItemClick(ListView lv, View view, int position, long id) {
     	// use this to highlight item: selected.isHovered()
     	// use for custom animation: selected.animate()
-		Log.i(TAG, "onListItemClicked");
-		String actionName = "" + ((TextView) view.findViewById(R.id.action_name)).getText();
-		Log.d(TAG, "actionName = " + actionName);
-		mCallback.showDialog(actionName);
+		String name = "" + ((TextView) view.findViewById(R.id.action_name)).getText();
+		
+		Log.d(TAG, "Clicked: actionName = " + name);
+		int pos = 0;
+		while (mActions.get(pos).getName() != name && pos < mActions.size())
+			pos++;
+		mCallback.showDialog(mActions.get(pos));
     }
 
 }

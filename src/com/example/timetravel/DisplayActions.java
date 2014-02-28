@@ -6,6 +6,9 @@
 
 package com.example.timetravel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -36,9 +39,7 @@ import com.example.timetravel.SortFragment.Sort;
  */
 public class DisplayActions extends FragmentActivity implements DisplayActionDialog, Sort, SelectAction {
 	
-	public final String IsEDIT = "com.example.timetravel.IsEDIT";
-	public final String ACTIONid = "com.example.timetravel.ACTIONid";
-	public static ActionDataSource datasource;
+	public static DatabaseHelper datasource;
 	public static SortFragment sortFragment = new SortFragment();
 	public static ActionFragment actionFragment = new ActionFragment();
 	public String sortFragTag = "SortFragment";
@@ -53,8 +54,7 @@ public class DisplayActions extends FragmentActivity implements DisplayActionDia
 		Log.i(TAG, "DisplayActions.onCreate()");
 		
 		Log.i(TAG, "DisplayActions.onCreate() >> opened datasource");
-		datasource = new ActionDataSource(this);
-		datasource.open();
+		datasource = new DatabaseHelper(this);
 
 		setContentView(R.layout.activity_display_actions);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -117,22 +117,26 @@ public class DisplayActions extends FragmentActivity implements DisplayActionDia
 	 * Callback method to show dialog fragment
 	 * @Override
 	 */
-	public void showDialog(String actionName) {
+	public void showDialog(Action action) {
 		Log.d(TAG, "showDialog()");
+		
 		// DialogFragment.show() will take care of adding the fragment
 		// in a transaction.  We also want to remove any currently showing
 		// dialog, so make our own transaction and take care of that here.
+		
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		Fragment prev = fm.findFragmentByTag("dialog");
+		
 		if (prev != null) {
 			Log.d(TAG, "dialog not null, moving to backstack");
 			ft.remove(prev);
 		}
+		
 		ft.addToBackStack(null);
 		
 		// Create and show the dialog.
-		DialogFragment newFragment = ActionDialog.newInstance(actionName);
+		DialogFragment newFragment = ActionDialog.newInstance(action);
 		newFragment.show(ft, "dialog");
 	}
 	
@@ -142,6 +146,7 @@ public class DisplayActions extends FragmentActivity implements DisplayActionDia
 	 */
 	public void editAction(Action action) {
 		// Add fragment to backStack
+		
 		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		Fragment dialog = fm.findFragmentByTag("dialog");
@@ -151,11 +156,17 @@ public class DisplayActions extends FragmentActivity implements DisplayActionDia
 	    }
 	    ft.addToBackStack(action.getName() + " dialog").commit();
 		
-	    // move to NewAction
+	    // move to NewAction activity
 		int id = action.getId();
 		Intent intent = new Intent(this, NewAction.class);
-		intent.putExtra(IsEDIT, true);
-		intent.putExtra(ACTIONid, id);
+		intent.putExtra("isEdit", true);
+		intent.putExtra("action_id", id);
+		
+		List<String> categories = new ArrayList<String>();
+		
+		intent.putExtra("action_id", id);
+		intent.putExtra("action_id", id);
+		
 		startActivity(intent);
 	}
 	
@@ -175,7 +186,7 @@ public class DisplayActions extends FragmentActivity implements DisplayActionDia
 	    ft.addToBackStack(action.getName() + " dialog").commit();
 		
 	    // delete Action
-		int rowsDeleted = datasource.deleteAction(action.getId());
+		int rowsDeleted = datasource.deleteAction(action);
 		if (rowsDeleted > 0) {
 			if (rowsDeleted == 1)
 				Toast.makeText(this, "Action deleted", Toast.LENGTH_SHORT).show();
@@ -189,8 +200,7 @@ public class DisplayActions extends FragmentActivity implements DisplayActionDia
 	@Override
 	public void onResume() {
 		Log.i(TAG, "DisplayActions.onResume() >> opened datasource");
-		datasource.open();
-		Action.updateActionRegistry(datasource);
+		datasource = new DatabaseHelper(this);
 		
 		// Add fragments
 		FragmentManager fm = getSupportFragmentManager();

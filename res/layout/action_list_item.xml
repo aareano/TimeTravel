@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+    
+<!-- 1 Row, 2 Columns -->
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/tblrow_name_category"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="15dp"
+    
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp" >
+
+	<TextView
+    	android:id="@+id/action_name"
+    	android:layout_width="0dp"
+      	android:layout_height="fill_parent"
+      	android:layout_weight="1"
+      	android:layout_gravity="left|center_vertical" />
+    
+	<TextView
+    	android:id="@+id/action_category"
+    	android:layout_width="0dp"
+      	android:layout_height="fill_parent"
+      	android:layout_weight="1"
+      	android:layout_gravity="left|center_vertical" />
+</TableRow>

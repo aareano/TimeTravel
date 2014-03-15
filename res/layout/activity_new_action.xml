@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tableLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:stretchColumns="1" >
+    
+ 	<EditText
+        android:id="@+id/editText_action_name"
+        android:hint="@string/hint_action_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp" >
+		<requestFocus />
+	</EditText>
+	
+	<TableRow
+        android:id="@+id/tableRow_categories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+	
+	 	<Spinner
+	 	    android:id="@+id/spinner_categories"
+	 	    android:layout_width="wrap_content"
+	 	    android:layout_height="wrap_content"
+	 	    android:layout_weight="1" />
+	
+	    <EditText 
+	        android:id="@+id/edit_text_new_category"
+	    	android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:layout_weight="0.1"
+	    	android:hint="@string/new_category_hint" />
+    </TableRow>
+        
+ 	<TextView
+     	android:id="@+id/text_from"
+     	android:layout_width="wrap_content"
+     	android:layout_height="wrap_content"
+     	android:layout_marginLeft="5dp"
+    	android:text="@string/text_from"
+		android:textAppearance="?android:attr/textAppearanceSmall" />
+ 	
+ 	<TableRow
+        android:id="@+id/tableRow_start_set"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dip" >
+		
+		<Button 
+		    android:id="@+id/button_startTime"
+		    style="?android:attr/buttonBarButtonStyle"
+		    android:layout_width="0dp" 
+		    android:layout_height="wrap_content"
+		    android:layout_weight="1"
+		    android:text="@string/button_start_time" 
+		    android:onClick="showStartTimePickerDialog" />
+		
+		<Button
+		    android:id="@+id/button_startDate" 
+		    style="?android:attr/buttonBarButtonStyle"
+		    android:layout_width="0dp" 
+		    android:layout_height="wrap_content"
+		    android:layout_weight="1"
+		    android:text="@string/button_start_date"
+		    android:onClick="showStartDatePickerDialog" />
+	</TableRow>
+		
+	<TextView
+		android:id="@+id/text_to"
+   		android:layout_width="0dp"
+   		android:layout_height="wrap_content"
+   		android:layout_marginLeft="5dp"
+   		android:text="@string/text_to"
+    	android:textAppearance="?android:attr/textAppearanceSmall" />
+	
+	<TableRow
+        android:id="@+id/tableRow_end_set"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dip" >
+		
+		<Button 
+		    android:id="@+id/button_endTime"
+		    style="?android:attr/buttonBarButtonStyle"
+		    android:layout_width="0dp" 
+		    android:layout_height="wrap_content"
+		    android:layout_weight="1"
+		    android:text="@string/button_end_time" 
+		    android:onClick="showEndTimePickerDialog" />
+		<Button
+		    android:id="@+id/button_endDate" 
+		    style="?android:attr/buttonBarButtonStyle"
+		    android:layout_width="0dp" 
+		    android:layout_height="wrap_content"
+		    android:layout_weight="1"
+		    android:text="@string/button_end_date" 
+		    android:onClick="showEndDatePickerDialog" />
+	</TableRow>
+</TableLayout>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true" >
+	
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/error"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_weight="1" />
+
+    <!-- 1st Row, 2 Columns -->
+	<TableRow
+        android:id="@+id/tblrow_category"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="10dp"
+        android:layout_weight="1" >
+	    <TextView
+	        android:id="@+id/label_category"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/label_category"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
+	        android:layout_weight="1" />
+	
+	    <TextView
+	        android:id="@+id/category"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/error"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
+	        android:layout_weight="1" />
+	</TableRow>
+	
+    <!-- 2nd Row, 2 Columns -->
+	<TableRow
+        android:id="@+id/tblrow_start_time"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="10dp"
+        android:layout_weight="1" >
+	    <TextView
+	        android:id="@+id/label_start_time"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/label_start"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
+	        android:layout_weight="1" />
+	
+	    <TextView
+	        android:id="@+id/start_time"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/error"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
+	        android:layout_weight="1" />
+	</TableRow>
+	
+	<!-- 3rd Row, 2 Columns -->
+	<TableRow
+        android:id="@+id/tblrow_end_time"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="10dp"
+        android:layout_weight="1" >
+	    
+	    <TextView
+	        android:id="@+id/label_end_time"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/label_end"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
+	        android:layout_weight="1" />
+	
+	    <TextView
+	        android:id="@+id/end_time"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/error"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
+	        android:layout_weight="1" />
+	</TableRow>
+		
+	<TextView
+	    android:id="@+id/textView_complete"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:paddingLeft="5dp"
+     	android:paddingRight="5dp"
+	    android:layout_gravity="center"
+	    android:textStyle="italic"
+	    android:text="@string/status_complete"
+	    android:textAppearance="?android:attr/textAppearanceSmall" />
+	
+	<TextView
+	    android:id="@+id/textView_current"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:paddingLeft="5dp"
+      	android:paddingRight="5dp"
+	    android:layout_gravity="center"
+	    android:textStyle="italic"
+	    android:text="@string/status_current"
+	    android:textAppearance="?android:attr/textAppearanceSmall" />
+	
+	<TextView
+	    android:id="@+id/textView_not_yet_begun"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:paddingLeft="5dp"
+    	android:paddingRight="5dp"
+	    android:layout_gravity="center"
+	    android:textStyle="italic"
+	    android:text="@string/status_not_yet"
+	    android:textAppearance="?android:attr/textAppearanceSmall" />
+		
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+	
+	<!-- 6th Row, 2 Columns -->
+    <TableRow
+       	android:id="@+id/tblrow_edit_delete"
+       	android:layout_width="match_parent"
+       	android:layout_height="0dp"
+       	android:padding="5dp"
+       	android:layout_marginLeft="10dp"
+		android:layout_marginRight="10dp"
+       	android:showDividers="middle"
+  	    android:layout_weight="1" >
+
+       	<Button
+           	android:id="@+id/button_edit"
+           	style="?android:attr/buttonBarButtonStyle"
+           	android:layout_width="0dp"
+           	android:layout_height="match_parent"
+           	android:layout_marginRight="5dp"
+           	android:gravity="center"
+           	android:onClick="editAction"
+           	android:text="@string/button_edit"
+	    	android:layout_weight="1" />	
+       	
+	 	<Button
+			android:id="@+id/button_delete"
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_marginLeft="5dp"
+			android:gravity="center"
+			android:text="@string/button_delete"
+			android:onClick="deleteAction"
+			android:layout_weight="1" />
+   </TableRow>
+
+</TableLayout>

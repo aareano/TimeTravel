@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:stretchColumns="1" >
-    
+        
  	<EditText
         android:id="@+id/editText_action_name"
         android:hint="@string/hint_action_name"
@@ -23,20 +23,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 	
+	 	<!-- 
 	 	<Spinner
 	 	    android:id="@+id/spinner_categories"
 	 	    android:layout_width="wrap_content"
 	 	    android:layout_height="wrap_content"
 	 	    android:layout_weight="1" />
-	
+		
 	    <EditText 
 	        android:id="@+id/edit_text_new_category"
 	    	android:layout_width="wrap_content"
 	    	android:layout_height="wrap_content"
 	    	android:layout_weight="0.1"
 	    	android:hint="@string/new_category_hint" />
+	   	-->
+	    
+   	    <Button 
+		    android:id="@+id/button_choose_category"
+		    style="?android:attr/buttonBarButtonStyle"
+		    android:layout_width="0dp"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="1"
+		    android:text="@string/button_choose_category" 
+		    android:onClick="showCategoryDialog" />
     </TableRow>
-        
+    
  	<TextView
      	android:id="@+id/text_from"
      	android:layout_width="wrap_content"

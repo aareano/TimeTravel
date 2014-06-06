@@ -24,18 +24,18 @@
         </activity>
         <activity
             android:name="com.example.timetravel.NewAction"
-            android:label="@string/app_name"
-            android:parentActivityName="@string/title_activity_main_menu" >/
+            android:label="@string/title_activity_new_action"
+            android:parentActivityName="@string/name_activity_main_menu" >/
         </activity>
         <activity
             android:name="com.example.timetravel.DisplayActions"
             android:label="@string/title_activity_display_actions"
-            android:parentActivityName="@string/title_activity_main_menu" >
+            android:parentActivityName="@string/name_activity_main_menu" >
         </activity>
         <activity
-            android:name="com.example.timetravel.History"
-            android:label="@string/title_activity_history"
-            android:parentActivityName="@string/title_activity_main_menu" >
+            android:name="com.example.timetravel.Statistics"
+            android:label="@string/title_activity_statistics"
+            android:parentActivityName="@string/name_activity_main_menu" >
         </activity>
     </application>
 

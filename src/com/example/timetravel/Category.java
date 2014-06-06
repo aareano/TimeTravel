@@ -9,10 +9,15 @@ public class Category {
 	private int id;
 	private int level;		// cat = 0, subcat = 1, subsubcat = 2, etc.
 	private String catName;
-	private Calendar timeCreated;
+	private Calendar timeCreated = Calendar.getInstance();
 	
 	// constructors
 	public Category() {
+	}
+	
+	public Category(String catName, int id) {
+		this.id = id;
+		this.catName = catName;
 	}
 	
 	public Category(int id, String catName, String timeCreated) {
@@ -36,8 +41,8 @@ public class Category {
 		this.catName = catName;
 	}
 	
-	public void setTimeCreated(String timeCreated) {
-		this.timeCreated.setTimeInMillis(Long.parseLong(timeCreated));
+	public void setTimeCreated(long l) {
+		this.timeCreated.setTimeInMillis(l);
 	}
 	
 	// getters

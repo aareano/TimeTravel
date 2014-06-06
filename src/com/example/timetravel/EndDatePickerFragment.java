@@ -15,6 +15,8 @@ public class EndDatePickerFragment extends DialogFragment implements DatePickerD
 	private static String TAG = "TimeTravel";
 	private static onEndDateSetListener mCallback;
 
+	int callCount = 0;   //To track number of calls to onDateSet()
+	
 	// Container Activity must implement this interface, Callback interface
 	public interface onEndDateSetListener {
 		void onEndDateSet(int year, int month, int monthDay);
@@ -61,7 +63,12 @@ public class EndDatePickerFragment extends DialogFragment implements DatePickerD
 	
 	@Override
     public void onDateSet(DatePicker view, int year, int month, int monthDay) {
-		mCallback.onEndDateSet(year, month, monthDay);
-    };
-	
+		
+		if(callCount == 1)    // On second call
+        {
+			mCallback.onEndDateSet(year, month, monthDay);
+        }
+
+        callCount ++;    // Incrementing call count.
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.timetravel;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 // I think category/sub should be in their own classes, not this one.
@@ -8,12 +9,9 @@ import java.util.Calendar;
 public class Action {
 
 	public final static String TAG = "TimeTravel";
-	// private static ArrayList<Action> ActionRegistry = new ArrayList<Action>();
 	private int id;
 	private String name;
-	private String category;
-	private String sub1Category;
-	private String sub2Category;
+	private ArrayList<Category> categories = new ArrayList<Category>();
 	private Calendar start = Calendar.getInstance();
 	private Calendar end = Calendar.getInstance();
 	private Calendar timeCreated = Calendar.getInstance();
@@ -23,24 +21,21 @@ public class Action {
 	public Action() {
 		
 	}
-	
-	public Action(String setName, String setCategory, Calendar setStart, Calendar setEnd) {
-		name = setName;
-		category = setCategory;
-		start = setStart;
-		end = setEnd;
-	}
 
-	public Action(int setId, String setName, String setCategory, String setSub1Category, String setSub2Category, 
-			Calendar setStart, Calendar setEnd, Calendar setWhenCreated) {
-		id = setId;
-		name = setName;
-		category = setCategory;
-		sub1Category = setSub1Category;
-		sub2Category = setSub2Category;
-		start = setStart;
-		end = setEnd;
-		timeCreated = setWhenCreated;
+	public Action(String name, String category, int catLevel, Calendar start, Calendar end) {
+		this.name = name;
+		categories.add(new Category(category, catLevel));
+		this.start = start;
+		this.end = end;
+	}
+	
+	public Action(int id, String name, String category, int catLevel, Calendar start, Calendar end, Calendar timeCreated) {
+		this.id = id;
+		this.name = name;
+		categories.add(new Category(category, catLevel));
+		this.start = start;
+		this.end = end;
+		this.timeCreated = timeCreated;
 	}
 	
 	
@@ -108,19 +103,11 @@ public class Action {
 		this.name = name;
 	}
 	
-	public void setCategory(String category) {
-		this.category = category;
+	public void setCategory(String category, int level) {
+		categories.add(new Category(category, level));
 	}
 	public void setCategory(Category category) {
-		this.category = category.toString();
-	}
-	
-	public void setSub1Category(String sub1Category) {
-		this.sub1Category = sub1Category;
-	}
-
-	public void setSub2Category(String sub2Category) {
-		this.sub2Category = sub2Category;
+		categories.add(category);
 	}
 	
 	public void setStart (long startMillis) {
@@ -145,16 +132,15 @@ public class Action {
 		return name;
 	}
 	
-	public String getCategory() {
-		return category;
-	}
-	
-	public String getSub1Category() {
-		return sub1Category;
-	}
-	
-	public String getSub2Category() {
-		return sub2Category;
+	public Category getCategory(int level) {
+		
+		for (int i = 0; i < categories.size(); i++) {
+			if (categories.get(i).getLevel() == level)
+				return categories.get(i);
+		}
+		
+		// default
+		return new Category(null, -1);
 	}
 	
 	public Calendar getStart () {

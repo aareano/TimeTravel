@@ -16,7 +16,7 @@
 	        android:layout_alignParentTop="true"
 	        android:layout_centerHorizontal="true"
 	        android:layout_marginTop="20dp"
-	        android:text="@string/string_menu_title"
+	        android:text="@string/menu_header"
 	        android:textAppearance="?android:attr/textAppearanceLarge" />
 	    
 	    <Button

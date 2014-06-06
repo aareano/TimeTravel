@@ -29,7 +29,6 @@ public class EndTimePickerFragment extends DialogFragment implements TimePickerD
 	@Override
     public void onAttach (Activity activity) {
         super.onAttach(activity);
-        Log.d("TimeTravel", "EndTimePicker onAttach");
         try {
             mCallback = (onEndTimeSetListener) activity;
         } catch (ClassCastException e) {
@@ -56,12 +55,8 @@ public class EndTimePickerFragment extends DialogFragment implements TimePickerD
         final Calendar c = Calendar.getInstance();
         c.setTimeInMillis(endMillis);
         
-        Log.d("TimeTravel", "In EndTimePicker: " + c.getTime().toString());
-        
 		int hour 		 = c.get(Calendar.HOUR_OF_DAY);
         int minute	 	 = c.get(Calendar.MINUTE);
-        
-        Log.d("TimeTravel", "After decl. in EndTimePicker: " + c.getTime().toString());
 
         Log.i(TAG, "Creating EndTimePickerFragment...");
 		
@@ -74,7 +69,6 @@ public class EndTimePickerFragment extends DialogFragment implements TimePickerD
 		
 		if(callCount == 1)    // On second call
         {
-			Log.i(TAG, "EndTimePicker setting time");
 			mCallback.onEndTimeSet(hourOfDay, minute);
         }
 

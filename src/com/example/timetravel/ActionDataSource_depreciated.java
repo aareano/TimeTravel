@@ -22,7 +22,7 @@ import android.util.Log;
 
 
 public class ActionDataSource_depreciated {
-	
+	/*
 	private static final String TAG = "TimeTravel";
 	
 	// Database fields
@@ -176,4 +176,5 @@ public class ActionDataSource_depreciated {
 	    	//Toast.makeText(this, "Action saved", Toast.LENGTH_SHORT).show();
 	    }
 	}
+	*/
 }

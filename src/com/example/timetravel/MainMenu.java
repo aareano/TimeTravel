@@ -30,6 +30,7 @@ public class MainMenu extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main_menu, menu);
+		
 		return true;
 	}
 
@@ -45,11 +46,15 @@ public class MainMenu extends Activity {
 	}
 	
 	public void onClickStats(View v) {
-		Toast.makeText(this, "Haven't gotten this far yet", Toast.LENGTH_LONG).show();
+		Intent intent = new Intent(this, Statistics.class);
+		startActivity(intent);
 	}
 	
 	public void onClickUpdate(View v) {
 		DatabaseHelper datasource = new DatabaseHelper(this);
+		
+		datasource.setup();
+		
 		datasource.close();
 		Toast.makeText(this, "Upgraded database", Toast.LENGTH_SHORT).show();
 	}

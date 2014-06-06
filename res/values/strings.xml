@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+	
+    <!-- Other -->
+    <string name="app_name">TimeTravel</string>
 
-    <string name="TAG">TimeTravel</string>
     
     <!-- Action Bar menus -->
     <string name="action_settings">Settings</string>
     <string name="action_save">Save</string>
 
+    
     <!-- MainMenu activity -->
-    <string name="title_activity_main_menu">Time Travel</string>
+    <string name="title_activity_main_menu">Data is cool.</string> <!-- apparent app name -->
+    <string name="name_activity_main_menu">com.example.timetravel.MainMenu</string>
+    
+    
+    <string name="menu_header">Time Travel</string>
     <string name="string_new_action">New Action</string>
     <string name="string_display_actions">Display Actions</string>
     <string name="string_stats">Statistics</string>
     <string name="string_upgrade">Upgrade Database</string>
-    <string name="string_menu_title">Time Travel</string>
-    <string name="title_activity_display_actions">Display Actions</string>
-    <string name="title_activity_history">History</string>
+    
     
     <!-- NewAction activity -->
+    <string name="title_activity_new_action">Create Action</string>
+    
     <string name="hint_action_name">Action name</string>
     <string name="hint_action_category">Category</string>
     <string name="new_category">New Category&#8230;</string>
@@ -29,12 +36,23 @@
 	<string name="button_start_date">Start date</string>
 	<string name="button_end_time">End time</string>
 	<string name="button_end_date">End date</string>
-	
-	<!-- Category dialog fragment-->
+	<string name="button_choose_category">Choose category</string>
+
+		
+	<!-- Category DialogFragment-->
+	<string name="pick_category_title">Pick a category</string>
 	<string name="message_no_categories">No categories</string>
+	<string name="ok">Ok</string>
+	<string name="cancel">Cancel</string>
+	<string name="create_category">Create category</string>
+	
+	<string name="create_category_title">New category</string>
+	
 	
 	<!-- DisplayActions activity -->
-	<string name="sort_instruction">View </string>
+    <string name="title_activity_display_actions">Display Actions</string>
+
+    <string name="sort_instruction">View </string>
 	<string name="end_text">actions</string>
 	<string name="recent_time">In the last </string>
 	<string name="organize_by">Organize by: </string>
@@ -42,7 +60,8 @@
 	<string name="fix_time_hint">9</string>
 	<string name="choose_Category">Choose Category&#8230;</string>
 	
-	<!-- History activity -->
+	
+    <!-- Action DialogFragment-->
 	<string name="label_category">Category:</string>
 	<string name="label_start">Start Time:</string>
 	<string name="label_end">End Time:</string>
@@ -54,14 +73,18 @@
 	<string name="error">error</string>
 	
 	
-    <!-- Other -->
-    <string name="app_name">TimeTravel</string>
-    <string name="hello_world">Hello World!</string>
-    
-    <!-- Colors -->
-    <color name="grey_blue">#C8D7E0</color>
+	<!-- Statistics activity -->
+    <string name="title_activity_statistics">Statistics</string>
+
+    <string name="no_actions">No actions in database</string>
+	<string name="no_categories">No categories in database</string>
+	
+	
+	<!-- Colors -->
+	<color name="grey_blue">#C8D7E0</color>
     <color name="dark_blue">#546F7D</color>
     <color name="red">#DE0D0D</color>
+    <color name="grey">#D9D9D9</color>
     <color name="background">#C8D7E0</color>
     <color name="main_menu_button1">#C5D3DB</color>
     <color name="main_menu_button2">#BCC9D1</color>
@@ -69,5 +92,9 @@
     <color name="main_menu_button4">#536F7A</color>
     <color name="display_actions_background">#EBEBEB</color>
     
+    <color name="rcolor1">#EBEBEB</color>
+    <color name="rcolor2">#D9BAD1</color>
+    <color name="rcolor3">#BAD9C2</color>
+    <color name="rcolor4">#BAD7D9</color>
     
 </resources>

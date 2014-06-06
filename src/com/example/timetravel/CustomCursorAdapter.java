@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 public class CustomCursorAdapter extends SimpleCursorAdapter{
 	
-	private static final String TAG = "TimeTravel";
+	private static final String TAG = "CustomCursorAdpater";
 	
     public CustomCursorAdapter (Context context, int layout, Cursor c, String[] from, int[] to, int flags) 	 {
     	super(context, layout, c, from, to, flags);

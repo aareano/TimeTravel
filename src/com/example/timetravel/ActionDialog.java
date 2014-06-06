@@ -105,8 +105,8 @@ public class ActionDialog extends DialogFragment {
     	getDialog().setTitle(mAction.getName());
     	mLayout.findViewById(R.id.name).setVisibility(View.GONE);
     	
-    	// category
-    	((TextView) mLayout.findViewById(R.id.category)).setText(mAction.getCategory());
+    	// category (is currently only returning top category) TODO
+    	((TextView) mLayout.findViewById(R.id.category)).setText(mAction.getCategory(0).toString());
     }
     
     /**

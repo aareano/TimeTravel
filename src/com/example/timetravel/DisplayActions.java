@@ -1,13 +1,4 @@
-
-// Create a picture of what you want to make.
-
-
-// working on: 	screw the loaders. use async task 
-
 package com.example.timetravel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -81,14 +73,10 @@ public class DisplayActions extends FragmentActivity implements DisplayActionDia
 		boolean saved = false;
 		switch (item.getItemId()) {
             case android.R.id.home:
-            	// Navigate up
-            	// DOESN'T WORK ON DEVICE
-                //NavUtils.navigateUpFromSameTask(this);
-                Log.d(TAG, "Navigating up from NewAction");
+            	Log.d(TAG, "Navigating up from NewAction");
+                NavUtils.navigateUpFromSameTask(this);
                 break;
 		}
-		Intent intent = new Intent(this, MainMenu.class);
-		startActivity(intent);
         return super.onOptionsItemSelected(item);
 	}
 	
@@ -161,8 +149,6 @@ public class DisplayActions extends FragmentActivity implements DisplayActionDia
 		Intent intent = new Intent(this, NewAction.class);
 		intent.putExtra("isEdit", true);
 		intent.putExtra("action_id", id);
-		
-		List<String> categories = new ArrayList<String>();
 		
 		intent.putExtra("action_id", id);
 		intent.putExtra("action_id", id);

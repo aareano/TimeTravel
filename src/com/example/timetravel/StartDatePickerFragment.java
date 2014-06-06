@@ -15,6 +15,8 @@ public class StartDatePickerFragment extends DialogFragment implements DatePicke
 	private static String TAG = "TimeTravel";
 	private static onStartDateSetListener mCallback;
 	
+	int callCount = 0;   //To track number of calls to onTimeSet()
+	
 	public interface onStartDateSetListener {
 		void onStartDateSet(int year, int month, int monthDay);
 	}
@@ -60,7 +62,12 @@ public class StartDatePickerFragment extends DialogFragment implements DatePicke
 	
 	@Override
     public void onDateSet(DatePicker view, int year, int month, int monthDay) {
-		mCallback.onStartDateSet(year, month, monthDay);
+		if(callCount == 1)    // On second call
+        {
+			mCallback.onStartDateSet(year, month, monthDay);
+        }
+
+        callCount ++;    // Incrementing call count.
     };
 	
 }

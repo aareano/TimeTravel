@@ -9,26 +9,32 @@ package com.example.timetravel;
 
 public final class R {
     public static final class array {
-        public static final int days_array=0x7f050000;
-        public static final int history_array=0x7f050005;
-        public static final int recent_res_array=0x7f050004;
-        public static final int sort_all_array=0x7f050003;
-        public static final int timeLength_array=0x7f050001;
-        public static final int top_sort_array=0x7f050002;
+        public static final int history_array=0x7f050004;
+        public static final int recent_res_array=0x7f050003;
+        public static final int sort_all_array=0x7f050002;
+        /**  Statistics activity 
+         */
+        public static final int timeSpan_array=0x7f050000;
+        public static final int top_sort_array=0x7f050001;
     }
     public static final class attr {
     }
     public static final class color {
-        public static final int background=0x7f070003;
+        public static final int background=0x7f070004;
         public static final int dark_blue=0x7f070001;
-        public static final int display_actions_background=0x7f070008;
+        public static final int display_actions_background=0x7f070009;
+        public static final int grey=0x7f070003;
         /**  Colors 
          */
         public static final int grey_blue=0x7f070000;
-        public static final int main_menu_button1=0x7f070004;
-        public static final int main_menu_button2=0x7f070005;
-        public static final int main_menu_button3=0x7f070006;
-        public static final int main_menu_button4=0x7f070007;
+        public static final int main_menu_button1=0x7f070005;
+        public static final int main_menu_button2=0x7f070006;
+        public static final int main_menu_button3=0x7f070007;
+        public static final int main_menu_button4=0x7f070008;
+        public static final int rcolor1=0x7f07000a;
+        public static final int rcolor2=0x7f07000b;
+        public static final int rcolor3=0x7f07000c;
+        public static final int rcolor4=0x7f07000d;
         public static final int red=0x7f070002;
     }
     public static final class dimen {
@@ -47,68 +53,83 @@ public final class R {
     }
     public static final class id {
         public static final int action_category=0x7f0a0002;
+        public static final int action_list=0x7f0a0025;
         public static final int action_name=0x7f0a0001;
-        public static final int action_save=0x7f0a003e;
-        public static final int action_settings=0x7f0a003d;
-        public static final int all_text=0x7f0a002f;
-        public static final int button_delete=0x7f0a002a;
+        public static final int action_save=0x7f0a004d;
+        public static final int action_settings=0x7f0a004c;
+        public static final int all_text=0x7f0a003b;
+        public static final int break1=0x7f0a0019;
+        public static final int break2=0x7f0a001d;
+        public static final int button_choose_category=0x7f0a000e;
+        public static final int button_delete=0x7f0a0036;
         public static final int button_display_actions=0x7f0a0008;
-        public static final int button_edit=0x7f0a0029;
-        public static final int button_endDate=0x7f0a0017;
-        public static final int button_endTime=0x7f0a0016;
+        public static final int button_edit=0x7f0a0035;
+        public static final int button_endDate=0x7f0a0016;
+        public static final int button_endTime=0x7f0a0015;
         public static final int button_new_act=0x7f0a0007;
-        public static final int button_startDate=0x7f0a0013;
-        public static final int button_startTime=0x7f0a0012;
+        public static final int button_startDate=0x7f0a0012;
+        public static final int button_startTime=0x7f0a0011;
         public static final int button_stats=0x7f0a0009;
         public static final int button_update=0x7f0a000a;
-        public static final int category=0x7f0a001a;
-        public static final int category_dialog_tablerow=0x7f0a0018;
-        public static final int checkBox=0x7f0a0019;
-        public static final int collRow_name_date=0x7f0a0036;
-        public static final int dividing_line=0x7f0a0035;
+        public static final int cat_name=0x7f0a001f;
+        public static final int category=0x7f0a0029;
+        public static final int collRow_name_date=0x7f0a0043;
+        public static final int dividing_line=0x7f0a0042;
         public static final int editText_action_name=0x7f0a000c;
-        public static final int edit_text_empty=0x7f0a002b;
-        public static final int edit_text_new_category=0x7f0a000f;
-        public static final int end_time=0x7f0a0023;
-        public static final int expRow_date_time=0x7f0a0039;
-        public static final int expRow_edit_delete=0x7f0a003c;
+        public static final int edit_new_category=0x7f0a0037;
+        public static final int end_time=0x7f0a002f;
+        public static final int expRow_date_time=0x7f0a0046;
+        public static final int expRow_edit_delete=0x7f0a0049;
         public static final int fragment_container=0x7f0a0003;
         public static final int fragment_container_list=0x7f0a0005;
         public static final int fragment_container_sort=0x7f0a0004;
-        public static final int how_recent=0x7f0a0033;
-        public static final int label_category=0x7f0a001d;
-        public static final int label_end_time=0x7f0a0022;
-        public static final int label_start_time=0x7f0a001f;
-        public static final int name=0x7f0a001b;
-        public static final int progressBar=0x7f0a0027;
-        public static final int spinner_categories=0x7f0a000e;
-        public static final int spinner_org_all=0x7f0a0030;
-        public static final int spinner_recent_res=0x7f0a0034;
-        public static final int spinner_top=0x7f0a002d;
-        public static final int start_time=0x7f0a0020;
+        public static final int hScroll_categories=0x7f0a001b;
+        public static final int hScroll_totals=0x7f0a0020;
+        public static final int hours=0x7f0a0022;
+        public static final int how_recent=0x7f0a0040;
+        public static final int info_header=0x7f0a001e;
+        public static final int item_hscroll_category=0x7f0a004b;
+        public static final int label_category=0x7f0a0028;
+        public static final int label_end_time=0x7f0a002e;
+        public static final int label_start_time=0x7f0a002b;
+        public static final int linearLayout=0x7f0a0017;
+        public static final int list_layout=0x7f0a001c;
+        public static final int name=0x7f0a0026;
+        public static final int no_actions=0x7f0a0024;
+        public static final int no_categories=0x7f0a001a;
+        public static final int percentage=0x7f0a0023;
+        public static final int progressBar=0x7f0a0033;
+        public static final int spinner_categories=0x7f0a003e;
+        public static final int spinner_org_all=0x7f0a003c;
+        public static final int spinner_recent_res=0x7f0a0041;
+        public static final int spinner_top=0x7f0a0039;
+        public static final int start_time=0x7f0a002c;
+        public static final int stats_layout=0x7f0a0021;
         public static final int tableLayout=0x7f0a000b;
         public static final int tableRow_categories=0x7f0a000d;
-        public static final int tableRow_end_set=0x7f0a0015;
-        public static final int tableRow_start_set=0x7f0a0011;
-        public static final int tblrow_category=0x7f0a001c;
-        public static final int tblrow_edit_delete=0x7f0a0028;
-        public static final int tblrow_end_time=0x7f0a0021;
+        public static final int tableRow_end_set=0x7f0a0014;
+        public static final int tableRow_start_set=0x7f0a0010;
+        public static final int tblrow_category=0x7f0a0027;
+        public static final int tblrow_edit_delete=0x7f0a0034;
+        public static final int tblrow_end_time=0x7f0a002d;
         public static final int tblrow_name_category=0x7f0a0000;
-        public static final int tblrow_start_time=0x7f0a001e;
-        public static final int tblrow_top=0x7f0a002c;
-        public static final int tblrow_view_all=0x7f0a002e;
-        public static final int tblrow_view_by_category=0x7f0a0031;
-        public static final int tblrow_view_recent=0x7f0a0032;
-        public static final int textView_complete=0x7f0a0024;
-        public static final int textView_current=0x7f0a0025;
-        public static final int textView_not_yet_begun=0x7f0a0026;
-        public static final int text_category=0x7f0a0038;
-        public static final int text_endTime=0x7f0a003b;
-        public static final int text_from=0x7f0a0010;
+        public static final int tblrow_start_time=0x7f0a002a;
+        public static final int tblrow_top=0x7f0a0038;
+        public static final int tblrow_view_all=0x7f0a003a;
+        public static final int tblrow_view_by_category=0x7f0a003d;
+        public static final int tblrow_view_recent=0x7f0a003f;
+        public static final int textView_complete=0x7f0a0030;
+        public static final int textView_current=0x7f0a0031;
+        public static final int textView_not_yet_begun=0x7f0a0032;
+        public static final int text_category=0x7f0a0045;
+        public static final int text_endTime=0x7f0a0048;
+        public static final int text_from=0x7f0a000f;
         public static final int text_menu_title=0x7f0a0006;
-        public static final int text_name=0x7f0a0037;
-        public static final int text_startTime=0x7f0a003a;
-        public static final int text_to=0x7f0a0014;
+        public static final int text_name=0x7f0a0044;
+        public static final int text_startTime=0x7f0a0047;
+        public static final int text_to=0x7f0a0013;
+        public static final int time_span=0x7f0a0018;
+        public static final int total_time=0x7f0a004a;
     }
     public static final class layout {
         public static final int action_list_item=0x7f030000;
@@ -117,12 +138,14 @@ public final class R {
         public static final int activity_new_action=0x7f030003;
         public static final int activity_ongoing_actions=0x7f030004;
         public static final int activity_statistics=0x7f030005;
-        public static final int category_item=0x7f030006;
-        public static final int dialogfragment_action_dialog=0x7f030007;
-        public static final int dialogfragment_category_dialog=0x7f030008;
+        public static final int dialogfragment_action_dialog=0x7f030006;
+        public static final int dialogfragment_category_list=0x7f030007;
+        public static final int dialogfragment_create_category=0x7f030008;
         public static final int fragment_action=0x7f030009;
         public static final int fragment_sort=0x7f03000a;
         public static final int history_list_item=0x7f03000b;
+        public static final int item_action_stats=0x7f03000c;
+        public static final int item_hscroll_cateogry=0x7f03000d;
     }
     public static final class menu {
         public static final int display_actions=0x7f090000;
@@ -132,61 +155,73 @@ public final class R {
         public static final int statistics_menu=0x7f090004;
     }
     public static final class string {
-        public static final int TAG=0x7f060000;
         public static final int action_save=0x7f060002;
         /**  Action Bar menus 
          */
         public static final int action_settings=0x7f060001;
         /**  Other 
          */
-        public static final int app_name=0x7f060027;
-        public static final int button_delete=0x7f060025;
-        public static final int button_edit=0x7f060024;
+        public static final int app_name=0x7f060000;
+        public static final int button_choose_category=0x7f060016;
+        public static final int button_delete=0x7f06002c;
+        public static final int button_edit=0x7f06002b;
         public static final int button_end_date=0x7f060015;
         public static final int button_end_time=0x7f060014;
         public static final int button_start_date=0x7f060013;
         public static final int button_start_time=0x7f060012;
-        public static final int choose_Category=0x7f06001d;
+        public static final int cancel=0x7f06001a;
+        public static final int choose_Category=0x7f060024;
         public static final int choose_category=0x7f06000e;
-        public static final int end_text=0x7f060018;
-        public static final int error=0x7f060026;
-        public static final int fix_time_hint=0x7f06001c;
-        public static final int hello_world=0x7f060028;
+        public static final int create_category=0x7f06001b;
+        public static final int create_category_title=0x7f06001c;
+        public static final int end_text=0x7f06001f;
+        public static final int error=0x7f06002d;
+        public static final int fix_time_hint=0x7f060023;
         public static final int hint_action_category=0x7f06000c;
-        /**  NewAction activity 
-         */
         public static final int hint_action_name=0x7f06000b;
-        /**  History activity 
+        /**  Action DialogFragment
          */
-        public static final int label_category=0x7f06001e;
-        public static final int label_end=0x7f060020;
-        public static final int label_start=0x7f06001f;
-        /**  Category dialog fragment
+        public static final int label_category=0x7f060025;
+        public static final int label_end=0x7f060027;
+        public static final int label_start=0x7f060026;
+        public static final int menu_header=0x7f060005;
+        public static final int message_no_categories=0x7f060018;
+        /**  apparent app name 
          */
-        public static final int message_no_categories=0x7f060016;
+        public static final int name_activity_main_menu=0x7f060004;
         public static final int new_category=0x7f06000d;
         public static final int new_category_hint=0x7f06000f;
-        public static final int organize_by=0x7f06001a;
-        public static final int recent_time=0x7f060019;
-        public static final int sort_categories=0x7f06001b;
-        /**  DisplayActions activity 
+        public static final int no_actions=0x7f06002f;
+        public static final int no_categories=0x7f060030;
+        public static final int ok=0x7f060019;
+        public static final int organize_by=0x7f060021;
+        /**  Category DialogFragment
          */
-        public static final int sort_instruction=0x7f060017;
-        public static final int status_complete=0x7f060021;
-        public static final int status_current=0x7f060022;
-        public static final int status_not_yet=0x7f060023;
-        public static final int string_display_actions=0x7f060005;
-        public static final int string_menu_title=0x7f060008;
-        public static final int string_new_action=0x7f060004;
-        public static final int string_stats=0x7f060006;
-        public static final int string_upgrade=0x7f060007;
+        public static final int pick_category_title=0x7f060017;
+        public static final int recent_time=0x7f060020;
+        public static final int sort_categories=0x7f060022;
+        public static final int sort_instruction=0x7f06001e;
+        public static final int status_complete=0x7f060028;
+        public static final int status_current=0x7f060029;
+        public static final int status_not_yet=0x7f06002a;
+        public static final int string_display_actions=0x7f060007;
+        public static final int string_new_action=0x7f060006;
+        public static final int string_stats=0x7f060008;
+        public static final int string_upgrade=0x7f060009;
         public static final int text_from=0x7f060010;
         public static final int text_to=0x7f060011;
-        public static final int title_activity_display_actions=0x7f060009;
-        public static final int title_activity_history=0x7f06000a;
+        /**  DisplayActions activity 
+         */
+        public static final int title_activity_display_actions=0x7f06001d;
         /**  MainMenu activity 
          */
         public static final int title_activity_main_menu=0x7f060003;
+        /**  NewAction activity 
+         */
+        public static final int title_activity_new_action=0x7f06000a;
+        /**  Statistics activity 
+         */
+        public static final int title_activity_statistics=0x7f06002e;
     }
     public static final class style {
         /** 

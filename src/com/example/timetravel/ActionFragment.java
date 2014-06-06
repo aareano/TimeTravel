@@ -1,5 +1,7 @@
 package com.example.timetravel;
 
+// this class is aaaallllll messed up because of the database restructuring TODO
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,11 +73,13 @@ public class ActionFragment extends ListFragment {
 		String[] selectionArgs = null;
 		
 		// Default values for tableName and columns (ID column must always be called)
-		String tableName = DatabaseHelper.TABLE_ACTIONS;
+		String tableName = DatabaseHelper.TABLE_ACTIONS + ", " + DatabaseHelper.TABLE_CATEGORIES + ", " 
+					+ DatabaseHelper.TABLE_ACTION_CATEGORIES;
+		
 		columns = new String[] {
-				DatabaseHelper.COLUMN_ID, 
+				DatabaseHelper.TABLE_ACTIONS + "." + DatabaseHelper.COLUMN_ID,
 				DatabaseHelper.COLUMN_NAME, 
-				DatabaseHelper.COLUMN_CATEGORY, 
+				DatabaseHelper.COLUMN_CATEGORY,
 				DatabaseHelper.COLUMN_END
 				};
 		
@@ -219,7 +223,7 @@ public class ActionFragment extends ListFragment {
         // Return a cursor
 		DatabaseHelper datasource = new DatabaseHelper(getActivity());
         Cursor cursor = datasource.proxyQuery(tableName, columns, whereClause, selectionArgs, null, null, orderBy);
-    	
+        
         Log.i(TAG, "ActionFragment cursor count: " + cursor.getCount());
     	if (cursor.getCount() > 0)
     		success = true;
@@ -237,7 +241,7 @@ public class ActionFragment extends ListFragment {
     			Action a = new Action();
     			a.setId(cursor.getInt(0));
     	    	a.setName(cursor.getString(1));
-    	    	a.setCategory(cursor.getString(2));
+    	    	a.setCategory(cursor.getString(2), 0);	// default at setting top category
     	    	a.setEnd(cursor.getLong(3));
     	    	
     	    	// adding to action list
@@ -272,6 +276,8 @@ public class ActionFragment extends ListFragment {
     public void onListItemClick(ListView lv, View view, int position, long id) {
     	// use this to highlight item: selected.isHovered()
     	// use for custom animation: selected.animate()
+		
+		
 		String name = "" + ((TextView) view.findViewById(R.id.action_name)).getText();
 		
 		Log.d(TAG, "Clicked: actionName = " + name);

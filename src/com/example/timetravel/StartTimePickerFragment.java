@@ -65,7 +65,6 @@ public class StartTimePickerFragment extends DialogFragment implements TimePicke
 	
 		if(callCount == 1)    // On second call
         {
-			Log.i(TAG, "StartTimePicker setting time");
 			mCallback.onStartTimeSet(hourOfDay, minute);
         }
 
